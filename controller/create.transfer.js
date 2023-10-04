@@ -15,14 +15,16 @@ const createTransfer = async (req, res) => {
       process.env.FLUTTERWAVE_PUBLIC_KEY,
       process.env.FLUTTERWAVE_SECRET_KEY
     );
-    //const details = {...req.body};
-    const details = {
-      account_bank: "044",
-      account_number: "0690000040",
-      amount: 2,
-      currency: "NGN",
-      narration: "Payment for things",
-    };
+    const details = { ...req.body };
+
+    console.log(req.body);
+    // const details = {
+    //   account_bank: "044",
+    //   account_number: "0690000040",
+    //   amount: 2,
+    //   currency: "NGN",
+    //   narration: "Payment for things",
+    // };
 
     const verifiedAccount = await flw.Misc.verify_Account({
       account_bank: details.account_bank,
