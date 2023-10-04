@@ -16,27 +16,30 @@ const bulkTransfer = async (req, res) => {
       process.env.FLUTTERWAVE_SECRET_KEY
     );
     //const details = {...req.body};
-    const details = {
-      title: "Staff salary for April",
+
+    console.log("Flutterwave");
+    const payload = {
+      title: "Staff salary",
       bulk_data: [
         {
-          bank_code: "044",
-          account_number: "0690000032",
-          amount: 690000,
-          currency: "NGN",
-          narration: "Salary payment for April",
+          account_bank: "MPS",
+          account_number: "2540782773934",
+          amount: 1200,
+          currency: "KES",
+          beneficiary_name: "Akinyi Kimwei",
         },
         {
-          bank_code: "044",
-          account_number: "0690000034",
-          amount: 420000,
-          currency: "NGN",
-          narration: "Salary payment for April",
+          account_bank: "MPS",
+          account_number: "2540782773934",
+          amount: 1200,
+          currency: "KES",
+          beneficiary_name: "Akinyi Kimwei",
         },
       ],
     };
+    console.log(payload);
 
-    const response = await flw.Transfer.bulk(details);
+    const response = await flw.Transfer.bulk(payload);
 
     res.json({ response });
   }
