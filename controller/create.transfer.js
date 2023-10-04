@@ -5,28 +5,42 @@ const createTransfer = async (req, res) => {
     process.env.FLUTTERWAVE_PUBLIC_KEY == "" ||
     process.env.FLUTTERWAVE_SECRET_KEY == ""
   ) {
-    //if not available send response
+    //If not available send response
     return res.json({
       message: "PUBLIC KEY and SECRET KEY cannot be blank",
     });
   } else {
-    //create instance of Flutterwave
+    //Create instance of Flutterwave
     const flw = new Flutterwave(
       process.env.FLUTTERWAVE_PUBLIC_KEY,
       process.env.FLUTTERWAVE_SECRET_KEY
     );
     //const details = {...req.body};
     const details = {
-      account_bank: "MTN",
-      account_number: "2250757564300",
+      account_bank: "044",
+      account_number: "0690000040",
       amount: 2,
-      currency: "GHS",
-      beneficiary_name: "ASSOA Arnauld",
+      currency: "NGN",
+      narration: "Payment for things",
     };
 
-    const data = await flw.Transfer.initiate(details);
+    const verifiedAccount = await flw.Misc.verify_Account({
+      account_bank: details.account_bank,
+      account_number: details.account_number,
+    });
 
-    res.json({ data });
+    console.log(
+      `MESSAGE:${verifiedAccount.message} STATUS: ${verifiedAccount.status}`
+    );
+    console.log(verifiedAccount);
+
+    if (verifiedAccount.status == "success") {
+      //const response = await flw.Transfer.initiate(details);
+      //res.json({ response });
+      res.json({ message: "Success" });
+    } else {
+      res.json({ verifiedAccount });
+    }
   }
 };
 

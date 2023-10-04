@@ -1,7 +1,7 @@
 {
   "name": "flutterwave-money-transfer",
   "version": "1.0.0",
-  "description": "send money internaltionally using flutterwave api",
+  "description": "send money internationally using flutterwave api",
   "main": "index.js",
   "author": "Ohene Adjei",
   "license": "MIT",
